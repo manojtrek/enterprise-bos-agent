@@ -1,4 +1,4 @@
-# Project Title
+# Enterprise API Agent
 
 A flexible framework for integrating, orchestrating, and securing interactions with external APIs. This library leverages agent-based architectures, mesh networking, and OAuth to streamline API communication and management.
 
