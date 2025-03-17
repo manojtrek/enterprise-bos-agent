@@ -1,0 +1,330 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Client Engagement API",
+    "description": "API to manage and retrieve client engagement records.",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/client-engagements": {
+      "get": {
+        "summary": "Get all client engagements",
+        "description": "Retrieve a list of all client engagement records.",
+        "operationId": "get_client_engagements_client_engagements_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/ClientEngagement" },
+                  "type": "array",
+                  "title": "Response Get Client Engagements Client Engagements Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new client engagement",
+        "description": "Add a new client engagement.",
+        "operationId": "create_client_engagement_client_engagements_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientEngagementCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ClientEngagement" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client-engagements/{client_id}": {
+      "get": {
+        "summary": "Get a client engagement by ID",
+        "description": "Retrieve a single client engagement by Client ID.",
+        "operationId": "get_client_engagement_client_engagements__client_id__get",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "The ID of the client engagement to retrieve",
+              "title": "Client Id"
+            },
+            "description": "The ID of the client engagement to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ClientEngagement" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a client engagement",
+        "description": "Update client engagements by provided Client_ID .",
+        "operationId": "update_client_engagement_client_engagements__client_id__put",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "The ID of the client engagement to update",
+              "title": "Client Id"
+            },
+            "description": "The ID of the client engagement to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientEngagementUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ClientEngagement" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a client engagement",
+        "description": "Delete a client engagement record by ID.",
+        "operationId": "delete_client_engagement_client_engagements__client_id__delete",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "The ID of the client engagement to delete",
+              "title": "Client Id"
+            },
+            "description": "The ID of the client engagement to delete"
+          }
+        ],
+        "responses": {
+          "204": { "description": "Successful Response" },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ClientEngagement": {
+        "properties": {
+          "client_id": { "type": "integer", "title": "Client Id" },
+          "client_name": { "type": "string", "title": "Client Name" },
+          "contact_email": { "type": "string", "title": "Contact Email" },
+          "contact_phone": { "type": "string", "title": "Contact Phone" },
+          "signup_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Signup Date"
+          },
+          "engagement_type": { "type": "string", "title": "Engagement Type" },
+          "engagement_status": {
+            "type": "string",
+            "title": "Engagement Status"
+          },
+          "last_meeting_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Last Meeting Date"
+          },
+          "feedback_rating": { "type": "integer", "title": "Feedback Rating" },
+          "notes": { "type": "string", "title": "Notes" }
+        },
+        "type": "object",
+        "required": [
+          "client_id",
+          "client_name",
+          "contact_email",
+          "contact_phone",
+          "signup_date",
+          "engagement_type",
+          "engagement_status",
+          "last_meeting_date",
+          "feedback_rating",
+          "notes"
+        ],
+        "title": "ClientEngagement"
+      },
+      "ClientEngagementCreate": {
+        "properties": {
+          "client_name": { "type": "string", "title": "Client Name" },
+          "contact_email": { "type": "string", "title": "Contact Email" },
+          "signup_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Signup Date"
+          },
+          "engagement_type": { "type": "string", "title": "Engagement Type" },
+          "contact_phone": { "type": "string", "title": "Contact Phone" },
+          "engagement_status": {
+            "type": "string",
+            "title": "Engagement Status"
+          },
+          "last_meeting_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Last Meeting Date"
+          },
+          "feedback_rating": { "type": "integer", "title": "Feedback Rating" },
+          "notes": { "type": "string", "title": "Notes" }
+        },
+        "type": "object",
+        "required": [
+          "client_name",
+          "contact_email",
+          "signup_date",
+          "engagement_type",
+          "contact_phone",
+          "engagement_status",
+          "last_meeting_date",
+          "feedback_rating",
+          "notes"
+        ],
+        "title": "ClientEngagementCreate"
+      },
+      "ClientEngagementUpdate": {
+        "properties": {
+          "client_name": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Client Name"
+          },
+          "contact_email": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contact Email"
+          },
+          "contact_phone": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Contact Phone"
+          },
+          "signup_date": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "null" }
+            ],
+            "title": "Signup Date"
+          },
+          "engagement_type": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Engagement Type"
+          },
+          "engagement_status": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Engagement Status"
+          },
+          "last_meeting_date": {
+            "anyOf": [
+              { "type": "string", "format": "date" },
+              { "type": "null" }
+            ],
+            "title": "Last Meeting Date"
+          },
+          "feedback_rating": {
+            "anyOf": [{ "type": "integer" }, { "type": "null" }],
+            "title": "Feedback Rating"
+          },
+          "notes": {
+            "anyOf": [{ "type": "string" }, { "type": "null" }],
+            "title": "Notes"
+          }
+        },
+        "type": "object",
+        "title": "ClientEngagementUpdate"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

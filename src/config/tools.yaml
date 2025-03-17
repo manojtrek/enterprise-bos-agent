@@ -1,0 +1,12 @@
+tools:
+  - id: "Client Engagements"
+    spec_url: "http://localhost:8000/openapi.json"
+    description: "API to manage and retrieve client engagement records."
+    header_auth: {}
+    
+  # Example of another tool configuration
+  # - id: "Document Search" 
+  #   spec_url: "http://localhost:8001/openapi.json"
+  #   description: "API to search through company documents and knowledge base."
+  #   header_auth:
+  #     Authorization: "Bearer {token}" 
