@@ -5,7 +5,7 @@ import chainlit as cl
 
 from dotenv import load_dotenv
 
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.tools import tool
 from langgraph.prebuilt import ToolNode
@@ -43,7 +43,7 @@ async def api_tool(query: str) -> str:
         return f"Error using API tool: {str(e)}"
 
 # Set up LLM with proper tool binding
-llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
+llm = AzureChatOpenAI(api_version="2024-05-01-preview", azure_deployment="gpt-4o")
 llm_with_tools = llm.bind_tools([api_tool])
 
 # Set up tool node properly

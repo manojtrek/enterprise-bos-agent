@@ -11,6 +11,7 @@ from langchain_core.language_models import BaseLanguageModel
 from langchain_core.prompts import BasePromptTemplate, PromptTemplate
 from langchain_core.pydantic_v1 import Field
 from langchain_core.tools import BaseTool, Tool
+from dotenv import load_dotenv
 
 from langchain_community.agent_toolkits.openapi.planner_prompt import (
     API_CONTROLLER_PROMPT,
@@ -32,7 +33,7 @@ from langchain_community.agent_toolkits.openapi.planner_prompt import (
     REQUESTS_PUT_TOOL_DESCRIPTION,
 )
 from langchain_community.agent_toolkits.openapi.spec import ReducedOpenAPISpec
-from langchain_community.llms import OpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain_community.tools.requests.tool import BaseRequestsTool
 from langchain_community.utilities.requests import RequestsWrapper
 
@@ -46,13 +47,13 @@ MAX_RESPONSE_LENGTH = 5000
 """Maximum length of the response to be returned."""
 
 Operation = Literal["GET", "POST", "PUT", "DELETE", "PATCH"]
-
+load_dotenv()
 
 def _get_default_llm_chain(prompt: BasePromptTemplate) -> Any:
     from langchain.chains.llm import LLMChain
 
     return LLMChain(
-        llm=OpenAI(),
+        llm=AzureChatOpenAI(api_version="2024-05-01-preview", azure_deployment="gpt-4o"),
         prompt=prompt,
     )
 

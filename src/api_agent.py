@@ -1,11 +1,13 @@
 import logging
 import yaml
 import requests
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain_community.utilities import RequestsWrapper
 from langchain_community.agent_toolkits.openapi.spec import reduce_openapi_spec
 import api_planner
 from setup_vectorstore import  vector_store_manager
+from dotenv import load_dotenv
+load_dotenv()
 
 # Set up logging
 logger = logging.getLogger(__name__)
@@ -15,9 +17,9 @@ ALLOW_DANGEROUS_REQUEST = True
 
 class APIAgent:
     """Class to handle API agent functionality"""
-    def __init__(self, llm=None, allow_dangerous_requests=ALLOW_DANGEROUS_REQUEST):
+    def __init__(self, allow_dangerous_requests=ALLOW_DANGEROUS_REQUEST):
         """Initialize the API agent with an LLM"""
-        self.llm = llm or ChatOpenAI(model_name="gpt-4o", temperature=0)
+        self.llm = AzureChatOpenAI(api_version="2024-05-01-preview", azure_deployment="gpt-4o")
         self.allow_dangerous_requests = allow_dangerous_requests
     
     async def execute_query(self, query: str) -> str:

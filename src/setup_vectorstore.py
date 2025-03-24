@@ -1,6 +1,6 @@
 from typing import Optional, Dict, List
 from pydantic import BaseModel
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import AzureOpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 import logging
 import yaml
@@ -16,7 +16,7 @@ class VectorStoreManager:
     
     def __init__(self, config_path=None):
         self._vector_store = None
-        self.embeddings = OpenAIEmbeddings()
+        self.embeddings = AzureOpenAIEmbeddings()
         self.config_path = config_path or Path(__file__).parent / "config" / "tools.yaml"
     
     def get_vector_store(self):
