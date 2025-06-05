@@ -11,6 +11,8 @@ This project provides:
 - **Vectorstore Setup:** Configure and initialize vector databases using for advanced data retrieval and storage.
 - **API Registry Integration:** Organize API definitions for standardized interactions.
 - **Chainlit Integration:** Includes guidelines and configuration building interactive applications.
+- **Demo Responses:** When a request looks instructional, the agent returns a simulated result and explains how to call the API yourself.
+- **API Key Prompts:** If a selected API requires an authentication key, the app will ask you to provide it at runtime.
 
 ## Getting Started
 
